@@ -112,12 +112,12 @@ if (!('existsSync' in fs)) {
 	fs.existsSync = require('path').existsSync;
 }
 
-if (!fs.existsSync('./config.js')) {
+if (!fs.existsSync('./config/config.js')) {
 	error('config.js doesn\'t exist; are you sure you copied config-example.js to config.js?');
 	process.exit(-1);
 }
 
-global.config = require('./config.js');
+global.config = require('./config/config.js');
 
 var checkCommandCharacter = function() {
 	if (!/[^a-z0-9 ]/i.test(config.commandcharacter)) {
