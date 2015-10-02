@@ -102,6 +102,8 @@ if (config.serverid === 'showdown') {
 	var csv = require('csv-parse');
 }
 
+var owner = '+scpinion';
+
 exports.commands = {
 	
 	/********************************
@@ -558,30 +560,30 @@ exports.commands = {
 *  Tournament Commands											*
 *************************************************************************************/
 	startTour: function(arg, by, room) {
-		if (this.hasRank(by, '%@#~')) {
-			var text = '/tour start';
-		} else if (room.charAt(0) === ',') {
+		if (room.charAt(0) === ',') {
 			var text = 'why would you pm me that?';
+		} else if (this.hasRank(by, '%@#~')) {
+			var text = '/tour start';
 		} else{
 			var text = '/pm ' + by + ', only staff can use this command.';
 		}
 		this.say(room, text);
 	},
 	newTour: function(arg, by, room) {
-		if (this.hasRank(by, '%@#~')) {
-			var text = '/tour ' + arg;
-		} else if (room.charAt(0) === ',') {
-			var text = 'why would you pm me that?'
+		if (room.charAt(0) === ',') {
+			var text = 'why would you pm me that?';
+		} else if (this.hasRank(by, '%@#~')) {
+			var text = '/tour ' + arg; 
 		} else{
 			var text = '/pm ' + by + ', only staff can use this command.';
 		}
 		this.say(room, text);
 	},
 	tour: function(arg, by, room) {
-		if (this.hasRank(by, '%@#~')) {
+		if (room.charAt(0) === ',') {
+			var text = 'why would you pm me that?';
+		} else if (this.hasRank(by, '%@#~')) {
 			var text = '/tour ' + arg;
-		} else if (room.charAt(0) === ',') {
-			var text = 'why would you pm me that?'
 		} else{
 			var text = '/pm ' + by + ', only staff can use this command.';
 		}
@@ -951,33 +953,33 @@ exports.commands = {
 	//usable only by scpinion to manage the bot
 	/*******************************************/
 	test: function(arg, by, room) {
-		if(room.charAt(0) === ',' && by === '+scpinion') console.log('.test: ' + mmc.isOT);
+		if(room.charAt(0) === ',' && by === owner) console.log('.test: ' + mmc.isOT);
 		//this.say(room, 'Tour Log has been re-written to tourLog.txt. Use .tourLog to view');
 	},
 	otTrue: function(arg, by, room) {
-		if(room.charAt(0) === ',' && by === '+scpinion') mmc.otTrue();
+		if(room.charAt(0) === ',' && by === owner) mmc.otTrue();
 		//this.say(room, 'Tour Log has been re-written to tourLog.txt. Use .tourLog to view');
 	},
 	otFalse: function(arg, by, room) {
-		if(room.charAt(0) === ',' && by === '+scpinion') mmc.otFalse();
+		if(room.charAt(0) === ',' && by === owner) mmc.otFalse();
 		//this.say(room, 'Tour Log has been re-written to tourLog.txt. Use .tourLog to view');
 	},
 	changeAvatar: function(arg, by, room){
-		if(room.charAt(0) === ',' && by === '+scpinion') this.say('monotype', '/avatar ' + arg)
+		if(room.charAt(0) === ',' && by === owner) this.say('monotype', '/avatar ' + arg)
 	},
 	talk: function(arg, by, room){
-		if(room.charAt(0) === ',' && by === '+scpinion') this.say('monotype', arg)
+		if(room.charAt(0) === ',' && by === owner) this.say('monotype', arg)
 	},
 	
 	// testing commands
 	foo: function(arg, by, room) {
-		if(room.charAt(0) === ',' && by === '+scpinion') {
+		if(room.charAt(0) === ',' && by === owner) {
 			scout.scoutFalse();
 			scout.logCheckScouters();
 		}
 	},
 	bar: function(arg, by, room) {
-		if(room.charAt(0) === ',' && by === '+scpinion') {
+		if(room.charAt(0) === ',' && by === owner) {
 			scout.scoutTrue();
 			scout.logCheckScouters();
 		}
@@ -1213,7 +1215,7 @@ exports.commands = {
 	unban: 'unautoban',
 	unab: 'unautoban',
 	unautoban: function (arg, by, room) {
-		if (!this.canUse('autoban', room, by) || room.charAt(0) === ',') return false;
+		if (room.charAt(0) === ',') return false;
 		if (!this.hasRank(this.ranks[room] || ' ', '@#&~')) return this.say(room, Config.nick + ' requires rank of @ or higher to (un)blacklist.');
 
 		arg = arg.split(',');
