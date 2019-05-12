@@ -7,7 +7,7 @@
 		"colors": "0.6.2",
 		"csv-parse": "0.0.6",
 		"domino": "1.0.19",
-		"jquery": "2.1.4",
+		"jquery": "3.4.0",
 		"jsdom": "3.1.2",
 		"xmlhttprequest":"1.7.0"
 	},
